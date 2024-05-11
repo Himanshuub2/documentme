@@ -19,11 +19,11 @@ export const imagetoText = async (prompt: string, base64Images: any[]) => {
         type: "image_url",
         image_url: {
           url: `data:image/jpeg;base64,${img}`,
-        },
+        }, 
       };
     }
   );
-  formattedImageObj.unshift({ type: "text", text: "What’s in this images? " });
+  formattedImageObj.unshift({ type: "text", text: process.env.UPWORK_ROLE + 'Frontend developer' + process.env.DEFAULT_PROMPT });
 
   const response = await openai.chat.completions.create({
     model: "gpt-4-turbo",
