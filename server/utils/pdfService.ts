@@ -7,29 +7,43 @@ interface AiResponse{
 }
 
 export default function createPDF(images:any[] , response:AiResponse) {
-//   const doc = new PDFDocument();
+  const doc = new PDFDocument();
 
-//   doc.pipe(fs.createWriteStream('output.pdf'));
+  doc
+    .pipe(fs.createWriteStream('output.pdf'));
 
-//   doc
-//     .fontSize(25)
-//     .text('Here is some text!', 100, 100);
+  doc
+    .fontSize(25)
+    .text('Document', 100, 100);
 
-// //   doc.image('path/to/image.png', {
-// //     fit: [250, 300],
-// //     align: 'center',
-// //     valign: 'center'
-// //   });
+  const arr= [1,2,3,4];
 
-//   // Add more text with options
-//   doc.fontSize(15).text('Here is some smaller text underneath an image.', 100, 400);
+  const IMAGESIZE = 400;
+  const BOTTOMMARGIN = 20;
+  arr.forEach(img=>{
+    doc.image(`data:image/jpeg;base64,${images[0]}`, {
+      fit: [350, 400],
+      align: 'center',
+      valign: 'center'
+    });
+    
+    doc.moveDown(0.5);
 
-//   // Finalize PDF file
-//   doc.end();
+
+    doc.fontSize(10)
+    .text(response.content, 100, 400)
+    .lineGap(6)
+    ;
+  
+    if (doc.y + IMAGESIZE > doc.page.height - BOTTOMMARGIN) {
+      doc.addPage(); 
+    }
+
+  })
+
+doc.end();
+
 }
 
-
-
-// 
 
 
