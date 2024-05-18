@@ -7,12 +7,16 @@ export default async function getScreenShots(baseUrl:string, endpoints:string[])
   });
   const page = await browser.newPage();
   if(!endpoints.length) endpoints.push('');
+  else{
+    endpoints.unshift('')
+  }
 
   if (endpoints.length) {
     for (let i = 0; i < endpoints.length; i++) {
-      await page.goto(`${baseUrl}/${endpoints[i]}`, {
-        waitUntil: "networkidle2",
-      });
+        await page.goto(`${baseUrl}/${endpoints[i]}`, {
+          waitUntil: "networkidle2",
+        })
+      
       await page.setViewport({
         width: 1920,
         height: 1080,
