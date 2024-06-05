@@ -7,6 +7,7 @@ interface AiResponse{
 }
 
 export default function createPDF(images:any[] , response:AiResponse) {
+  const contentParts = response.content.split('@----@')
   const doc = new PDFDocument();
 
   doc
@@ -14,24 +15,23 @@ export default function createPDF(images:any[] , response:AiResponse) {
 
   doc
     .fontSize(25)
-    .text('Document', 100, 100);
+    .text('Document', 100, 100,{align:"center"});
 
-  const arr= [1,2,3,4];
-
+  doc.moveDown();
   const IMAGESIZE = 400;
-  const BOTTOMMARGIN = 20;
-  arr.forEach(img=>{
-    doc.image(`data:image/jpeg;base64,${images[0]}`, {
-      fit: [350, 400],
+  const BOTTOMMARGIN = 10;
+  images.forEach((img,idx)=>{
+    doc.image(`data:image/jpeg;base64,${img}`, {
+      fit: [450, 450],
       align: 'center',
       valign: 'center'
     });
-    
-    doc.moveDown(0.5);
+    doc.moveDown();
+    doc.moveDown(2);
 
 
     doc.fontSize(10)
-    .text(response.content, 100, 400)
+    .text(contentParts[idx+1], 100, 400)
     .lineGap(6)
     ;
   
