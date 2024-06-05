@@ -10,6 +10,7 @@ export default async function getScreenShots(baseUrl:string, endpoints:string[])
   else{
     endpoints.unshift('')
   }
+  console.log(baseUrl,endpoints);
 
   if (endpoints.length) {
     for (let i = 0; i < endpoints.length; i++) {
@@ -33,9 +34,10 @@ export default async function getScreenShots(baseUrl:string, endpoints:string[])
       
       if(img) imageArray.push(img); 
 
-      await browser.close();
     }
   }
+  await browser.close();
+
 
   return imageArray;
 }

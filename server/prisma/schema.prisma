@@ -11,6 +11,7 @@ model User {
   id              Int        @id @default(autoincrement())
   username        String     @unique
   full_name       String?
+  email           String
   hashed_password String
   resource        Resource[]
 }
