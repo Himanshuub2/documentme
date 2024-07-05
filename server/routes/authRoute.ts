@@ -3,7 +3,7 @@ import authService from '../services/authService';
 
 const authRoute = express.Router();
 
-// authRoute.post('/login');
+authRoute.post('/login',authService.login as any);
 authRoute.post('/signup',authService.signup as any);
 
 
